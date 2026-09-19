@@ -40,18 +40,18 @@ Audio lives in `/public/audio/` and is played via `src/components/AudioControlle
 Playback is wrapped in try/catch, so a missing or silent file never breaks
 the experience — it just plays nothing.
 
-| Filename | Used for | Recommended length | Format |
-| --- | --- | --- | --- |
-| `siren.mp3` | Pressing "SOUND THE ALARM" | 1–3 seconds | MP3, normalized volume |
-| `truck-horn.mp3` | Truck arriving ("WEE-OOO!" moment) | 1–2 seconds | MP3 |
-| `celebration.mp3` | Successful RSVP confirmation | 2–4 seconds | MP3 |
+| Filename | Used for | Recommended length | Format | Status |
+| --- | --- | --- | --- | --- |
+| `siren.mp3` | Pressing "SOUND THE ALARM" | 1–3 seconds | MP3, normalized volume | ✅ Supplied |
+| `lets-go.mp3` | Pressing "LET'S GO →" | any | MP3 | ✅ Supplied |
+| `truck-horn.mp3` | Truck arriving ("WEE-OOO!" moment) | 1–2 seconds | MP3 | Empty placeholder |
+| `celebration.mp3` | Successful RSVP confirmation | 2–4 seconds | MP3 | Empty placeholder |
 
-**Current status: these three files exist as empty (0-byte) placeholders.**
-I did not generate or download any audio, since I can't create real sound
-and won't source copyrighted audio. Replace the placeholder files with real
-royalty-free or custom-recorded audio (same filenames) to enable sound —
-good sources include Freesound.org (CC0 filter), Zapsplat, or a quick phone
-recording of a toy siren / party horn / "yay!" cheer.
+`truck-horn.mp3` and `celebration.mp3` are still empty (0-byte) placeholders —
+playback is wrapped in try/catch, so they just play nothing rather than
+breaking anything. Replace them with real royalty-free audio (same filenames)
+to enable sound at those two moments too — good sources include Pixabay
+Sound Effects, Mixkit, or Freesound.org (CC0 filter).
 
 ## Social share image
 

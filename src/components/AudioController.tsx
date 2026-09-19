@@ -10,12 +10,13 @@ import {
   type ReactNode,
 } from "react";
 
-export type SoundName = "siren" | "horn" | "celebration";
+export type SoundName = "siren" | "horn" | "celebration" | "letsGo";
 
 const SOUND_SOURCES: Record<SoundName, string> = {
   siren: "/audio/siren.mp3",
   horn: "/audio/truck-horn.mp3",
   celebration: "/audio/celebration.mp3",
+  letsGo: "/audio/lets-go.mp3",
 };
 
 interface AudioContextValue {

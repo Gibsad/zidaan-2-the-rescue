@@ -41,6 +41,11 @@ export default function FireTruckAnimation({ onComplete, reducedMotion }: FireTr
   const showZidaan = step >= 2;
   const showSpeech = step >= 3;
 
+  function handleLetsGo() {
+    play("letsGo");
+    onComplete();
+  }
+
   return (
     <section
       className="safe-x safe-top safe-bottom flex min-h-[100dvh] flex-col items-center justify-center gap-3 py-8 text-center"
@@ -96,7 +101,7 @@ export default function FireTruckAnimation({ onComplete, reducedMotion }: FireTr
 
               <motion.button
                 type="button"
-                onClick={onComplete}
+                onClick={handleLetsGo}
                 initial={reducedMotion ? false : { opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.35, duration: 0.35 }}
