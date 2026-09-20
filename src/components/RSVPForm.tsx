@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { COUNT_OPTIONS, toSubmission, validateRSVP } from "@/lib/validation";
+import { EVENT } from "@/lib/event";
 import type { RSVPFormValues } from "@/types/rsvp";
 
 const INITIAL_VALUES: RSVPFormValues = {
@@ -83,6 +84,7 @@ export default function RSVPForm({ onSubmitted }: RSVPFormProps) {
       <p className="max-w-xs text-center text-sm font-semibold text-navy sm:text-base">
         Help us know if you can join Zidaan&apos;s Rescue Crew!
       </p>
+      <p className="text-sm font-bold text-fire-red-dark">{EVENT.rsvpByLabel}</p>
 
       <form
         onSubmit={handleSubmit}

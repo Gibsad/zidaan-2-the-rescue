@@ -4,6 +4,7 @@ export const EVENT = {
   title: "Zidaan 2 The Rescue",
   dateLabel: "October 31st",
   timeLabel: "11 AM – 4 PM",
+  rsvpByLabel: "Please RSVP by Sep 30th",
   addressLine1: "845 Hazel Street",
   addressLine2: "Livermore, California",
   fullAddress: "845 Hazel Street, Livermore, CA",
