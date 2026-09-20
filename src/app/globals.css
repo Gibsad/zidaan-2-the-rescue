@@ -115,11 +115,14 @@ button {
 
 @keyframes confetti-fall {
   0% {
-    transform: translateY(-10vh) rotate(0deg);
+    transform: translate(0, -10vh) rotate(0deg);
     opacity: 1;
   }
+  50% {
+    transform: translate(var(--sway, 20px), 50vh) rotate(270deg);
+  }
   100% {
-    transform: translateY(110vh) rotate(540deg);
+    transform: translate(0, 110vh) rotate(540deg);
     opacity: 0.9;
   }
 }
@@ -132,6 +135,19 @@ button {
   50% {
     transform: translateY(-6px);
   }
+}
+
+@keyframes wheel-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-wheel-spin {
+  animation: wheel-spin 0.35s linear infinite;
 }
 
 @keyframes wave-arm {

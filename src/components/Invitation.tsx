@@ -5,7 +5,28 @@ import EventDetails from "@/components/EventDetails";
 import FireHydrantArt from "@/components/art/FireHydrantArt";
 import { EVENT } from "@/lib/event";
 
-export default function Invitation({ onRsvp }: { onRsvp: () => void }) {
+const titleContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
+};
+
+const titleItem = {
+  hidden: { opacity: 0, scale: 0.4, y: 14 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 320, damping: 16 },
+  },
+};
+
+export default function Invitation({
+  onRsvp,
+  reducedMotion = false,
+}: {
+  onRsvp: () => void;
+  reducedMotion?: boolean;
+}) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 16 }}
@@ -14,20 +35,37 @@ export default function Invitation({ onRsvp }: { onRsvp: () => void }) {
       className="safe-x safe-top safe-bottom flex min-h-[100dvh] flex-col items-center justify-center gap-6 py-10 text-center"
       aria-label="Birthday invitation details"
     >
-      <div className="flex flex-col items-center leading-[0.9]">
-        <span className="font-display text-3xl font-bold tracking-wide text-navy sm:text-4xl">
+      <motion.div
+        variants={reducedMotion ? undefined : titleContainer}
+        initial={reducedMotion ? false : "hidden"}
+        animate={reducedMotion ? undefined : "visible"}
+        className="flex flex-col items-center leading-[0.9]"
+      >
+        <motion.span
+          variants={reducedMotion ? undefined : titleItem}
+          className="font-display text-3xl font-bold tracking-wide text-navy sm:text-4xl"
+        >
           {EVENT.childName.toUpperCase()}
-        </span>
-        <span className="font-display text-7xl font-black text-fire-red drop-shadow-sm sm:text-8xl">
+        </motion.span>
+        <motion.span
+          variants={reducedMotion ? undefined : titleItem}
+          className="font-display text-7xl font-black text-fire-red drop-shadow-sm sm:text-8xl"
+        >
           {EVENT.age}
-        </span>
-        <span className="font-display text-2xl font-bold tracking-[0.3em] text-navy sm:text-3xl">
+        </motion.span>
+        <motion.span
+          variants={reducedMotion ? undefined : titleItem}
+          className="font-display text-2xl font-bold tracking-[0.3em] text-navy sm:text-3xl"
+        >
           THE
-        </span>
-        <span className="font-display text-4xl font-black tracking-wide text-fire-red sm:text-5xl">
+        </motion.span>
+        <motion.span
+          variants={reducedMotion ? undefined : titleItem}
+          className="font-display text-4xl font-black tracking-wide text-fire-red sm:text-5xl"
+        >
           RESCUE
-        </span>
-      </div>
+        </motion.span>
+      </motion.div>
 
       <p className="font-body max-w-xs text-base font-semibold text-navy sm:text-lg">
         Join us in celebrating

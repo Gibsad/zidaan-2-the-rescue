@@ -1,9 +1,14 @@
 interface FireTruckArtProps {
   className?: string;
   lightsOn?: boolean;
+  spinning?: boolean;
 }
 
-export default function FireTruckArt({ className = "", lightsOn = false }: FireTruckArtProps) {
+export default function FireTruckArt({
+  className = "",
+  lightsOn = false,
+  spinning = false,
+}: FireTruckArtProps) {
   return (
     <svg
       viewBox="0 0 520 240"
@@ -76,8 +81,8 @@ export default function FireTruckArt({ className = "", lightsOn = false }: FireT
       <rect x="66" y="158" width="360" height="10" rx="4" fill="#1b2436" />
 
       {/* Wheels */}
-      <Wheel cx={140} cy={176} />
-      <Wheel cx={360} cy={176} />
+      <Wheel cx={140} cy={176} spinning={spinning} />
+      <Wheel cx={360} cy={176} spinning={spinning} />
 
       {/* Ground shadow */}
       <ellipse cx="250" cy="196" rx="230" ry="10" fill="#0f1524" opacity="0.15" />
@@ -85,12 +90,28 @@ export default function FireTruckArt({ className = "", lightsOn = false }: FireT
   );
 }
 
-function Wheel({ cx, cy }: { cx: number; cy: number }) {
+function Wheel({ cx, cy, spinning }: { cx: number; cy: number; spinning: boolean }) {
   return (
     <g>
       <circle cx={cx} cy={cy} r="26" fill="#1b2436" />
-      <circle cx={cx} cy={cy} r="12" fill="#cdcdcd" />
-      <circle cx={cx} cy={cy} r="4" fill="#1b2436" />
+      <g
+        className={spinning ? "animate-wheel-spin" : ""}
+        style={{ transformOrigin: `${cx}px ${cy}px` }}
+      >
+        <circle cx={cx} cy={cy} r="12" fill="#cdcdcd" />
+        <circle cx={cx} cy={cy} r="4" fill="#1b2436" />
+        {[0, 90, 180, 270].map((angle) => (
+          <rect
+            key={angle}
+            x={cx - 1.5}
+            y={cy - 11}
+            width="3"
+            height="7"
+            fill="#8a8f98"
+            transform={`rotate(${angle} ${cx} ${cy})`}
+          />
+        ))}
+      </g>
     </g>
   );
 }

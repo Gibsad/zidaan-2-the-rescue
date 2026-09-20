@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 const COLORS = ["#e0302d", "#ffc02e", "#59c1f0", "#fff8ec", "#1b2436"];
 
@@ -12,6 +12,8 @@ interface ConfettiPiece {
   color: string;
   rotateStart: number;
   size: number;
+  sway: number;
+  round: boolean;
 }
 
 function generatePieces(pieceCount: number): ConfettiPiece[] {
@@ -23,6 +25,8 @@ function generatePieces(pieceCount: number): ConfettiPiece[] {
     color: COLORS[id % COLORS.length],
     rotateStart: Math.random() * 360,
     size: 6 + Math.random() * 6,
+    sway: (Math.random() - 0.5) * 140,
+    round: id % 3 === 0,
   }));
 }
 
@@ -50,16 +54,21 @@ export default function Confetti({ active, reducedMotion = false, pieceCount = 6
       {pieces.map((piece) => (
         <span
           key={piece.id}
-          className="animate-confetti-fall absolute top-0 block rounded-sm"
-          style={{
-            left: `${piece.left}%`,
-            width: piece.size,
-            height: piece.size * 2.2,
-            backgroundColor: piece.color,
-            animationDelay: `${piece.delay}s`,
-            animationDuration: `${piece.duration}s`,
-            transform: `rotate(${piece.rotateStart}deg)`,
-          }}
+          className={`animate-confetti-fall absolute top-0 block ${
+            piece.round ? "rounded-full" : "rounded-sm"
+          }`}
+          style={
+            {
+              left: `${piece.left}%`,
+              width: piece.size,
+              height: piece.round ? piece.size : piece.size * 2.2,
+              backgroundColor: piece.color,
+              animationDelay: `${piece.delay}s`,
+              animationDuration: `${piece.duration}s`,
+              transform: `rotate(${piece.rotateStart}deg)`,
+              "--sway": `${piece.sway}px`,
+            } as CSSProperties
+          }
         />
       ))}
     </div>

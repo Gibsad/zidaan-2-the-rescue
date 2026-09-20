@@ -39,6 +39,23 @@ function ExperienceInner() {
     setStage("sequence");
   }
 
+  // A punchier spring-based slide+scale for every stage change, so screens feel
+  // like they "pop" into place rather than plainly cross-fading. Falls back to
+  // a quick, motion-free fade when prefers-reduced-motion is set.
+  const stageMotionProps = reducedMotion
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        transition: { duration: 0.15 },
+      }
+    : {
+        initial: { opacity: 0, y: 28, scale: 0.96 },
+        animate: { opacity: 1, y: 0, scale: 1 },
+        exit: { opacity: 0, y: -18, scale: 0.98 },
+        transition: { type: "spring" as const, stiffness: 260, damping: 24 },
+      };
+
   return (
     <>
       <BackgroundScene />
@@ -46,13 +63,13 @@ function ExperienceInner() {
 
       <AnimatePresence mode="wait">
         {stage === "intro" && (
-          <motion.div key="intro" exit={{ opacity: 0 }}>
+          <motion.div key="intro" {...stageMotionProps}>
             <FireStationIntro onAlarm={handleAlarm} />
           </motion.div>
         )}
 
         {stage === "sequence" && (
-          <motion.div key="sequence" exit={{ opacity: 0 }}>
+          <motion.div key="sequence" {...stageMotionProps}>
             <FireTruckAnimation
               reducedMotion={reducedMotion}
               onComplete={() => setStage("invitation")}
@@ -61,13 +78,13 @@ function ExperienceInner() {
         )}
 
         {stage === "invitation" && (
-          <motion.div key="invitation" exit={{ opacity: 0 }}>
-            <Invitation onRsvp={() => setStage("rsvp")} />
+          <motion.div key="invitation" {...stageMotionProps}>
+            <Invitation onRsvp={() => setStage("rsvp")} reducedMotion={reducedMotion} />
           </motion.div>
         )}
 
         {stage === "rsvp" && (
-          <motion.div key="rsvp" exit={{ opacity: 0 }}>
+          <motion.div key="rsvp" {...stageMotionProps}>
             <RSVPForm
               onSubmitted={(attending) => setStage(attending ? "success" : "declined")}
             />
@@ -75,13 +92,13 @@ function ExperienceInner() {
         )}
 
         {stage === "success" && (
-          <motion.div key="success" exit={{ opacity: 0 }}>
+          <motion.div key="success" {...stageMotionProps}>
             <RSVPSuccess reducedMotion={reducedMotion} />
           </motion.div>
         )}
 
         {stage === "declined" && (
-          <motion.div key="declined" exit={{ opacity: 0 }}>
+          <motion.div key="declined" {...stageMotionProps}>
             <RSVPDeclined />
           </motion.div>
         )}

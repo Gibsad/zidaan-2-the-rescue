@@ -66,7 +66,20 @@ export default function FireTruckAnimation({ onComplete, reducedMotion }: FireTr
           animate={{ x: truckOut ? "0%" : "-140%" }}
           transition={{ duration: reducedMotion ? 0 : 1.5, ease: "easeInOut" }}
         >
-          <FireTruckArt lightsOn={!reducedMotion && step <= 1} className="w-56 sm:w-72" />
+          <motion.div
+            animate={isDriving ? { y: [0, -7, 0] } : { y: 0 }}
+            transition={
+              isDriving
+                ? { duration: 0.35, repeat: Infinity, ease: "easeInOut" }
+                : { duration: 0.2 }
+            }
+          >
+            <FireTruckArt
+              lightsOn={!reducedMotion && step <= 1}
+              spinning={isDriving}
+              className="w-56 sm:w-72"
+            />
+          </motion.div>
         </motion.div>
       </div>
 
