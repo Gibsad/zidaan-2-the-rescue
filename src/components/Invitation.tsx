@@ -75,10 +75,6 @@ export default function Invitation({
 
       <EventDetails />
 
-      <p className="font-display text-sm font-bold tracking-wide text-fire-red-dark sm:text-base">
-        🚨 {EVENT.rsvpByLabel} 🚨
-      </p>
-
       <motion.button
         type="button"
         onClick={onRsvp}
